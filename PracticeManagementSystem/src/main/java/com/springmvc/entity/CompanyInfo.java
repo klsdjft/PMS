@@ -9,6 +9,12 @@ public class CompanyInfo {
 
     private Integer praiserate;
 
+    private String address;
+
+    private Integer telephone;
+
+    private String managername;
+
     public Integer getCid() {
         return cid;
     }
@@ -39,5 +45,29 @@ public class CompanyInfo {
 
     public void setPraiserate(Integer praiserate) {
         this.praiserate = praiserate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getManagername() {
+        return managername;
+    }
+
+    public void setManagername(String managername) {
+        this.managername = managername;
     }
 }

@@ -1,15 +1,12 @@
 package com.springmvc.dao;
 
 import com.springmvc.entity.CompanyInfo;
-import com.springmvc.entity.StudentInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by liu on 2017/5/5.

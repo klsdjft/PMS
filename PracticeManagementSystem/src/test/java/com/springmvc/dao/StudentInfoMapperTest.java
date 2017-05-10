@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
 
 /**
  * Created by liu on 2017/5/5.
@@ -41,6 +41,23 @@ public class StudentInfoMapperTest {
         int result = studentInfoMapper.insertSelective(studentInfo);
         System.out.println(result);
         assert (result == 1);
+    }
+    @Test
+    public void selectSelective()throws Exception{
+        StudentInfo studentInfo=new StudentInfo();
+        studentInfo.setSnumber(15051700);
+        ArrayList<StudentInfo> list=studentInfoMapper.selectSelective(studentInfo);
+        for(StudentInfo a:list)
+            System.out.println(a);
+    }
+
+    @Test
+    public void selectLike()throws Exception{
+        StudentInfo studentInfo=new StudentInfo();
+        studentInfo.setSname("刘昊轩");
+        ArrayList<StudentInfo> list=studentInfoMapper.selectLike(studentInfo);
+        for(StudentInfo a:list)
+            System.out.println(a);
     }
 
 }

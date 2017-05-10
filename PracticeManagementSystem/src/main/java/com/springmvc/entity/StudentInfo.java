@@ -11,6 +11,8 @@ public class StudentInfo {
 
     private String spassword;
 
+    private String sprofile;
+
     public Integer getSnumber() {
         return snumber;
     }
@@ -49,5 +51,13 @@ public class StudentInfo {
 
     public void setSpassword(String spassword) {
         this.spassword = spassword;
+    }
+
+    public String getSprofile() {
+        return sprofile;
+    }
+
+    public void setSprofile(String sprofile) {
+        this.sprofile = sprofile;
     }
 }

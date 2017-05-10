@@ -8,12 +8,72 @@
     <result column="smajor" property="smajor" jdbcType="VARCHAR" />
     <result column="spassword" property="spassword" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.springmvc.entity.StudentInfo" extends="BaseResultMap" >
+    <result column="sprofile" property="sprofile" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     snumber, sname, ssex, smajor, spassword
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <sql id="Blob_Column_List" >
+    sprofile
+  </sql>
+  <!--自定义接口-->
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*)from student_info
+  </select>
+  <select id="selectSelective" resultMap="BaseResultMap" parameterType="com.springmvc.entity.StudentInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from student_info
+    <where>
+      <if test="snumber!= null" >
+        snumber = #{snumber,jdbcType=INTEGER}
+      </if>
+      <if test="sname != null" >
+        AND sname = #{sname,jdbcType=VARCHAR}
+      </if>
+      <if test="spassword != null" >
+        AND spassword = #{spassword,jdbcType=VARCHAR}
+      </if>
+      <if test="smajor != null" >
+        AND smajor = #{smajor,jdbcType=VARCHAR}
+      </if>
+      <if test="ssex != null" >
+        AND ssex = #{ssex,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectLike" resultMap="BaseResultMap" parameterType="com.springmvc.entity.StudentInfo">
+    select
+    <include refid="Base_Column_List"/>
+    from student_info
+    <where>
+      <if test="snumber!= null and snumber != ''">
+        AND snumber LIKE concat('%',#{snumber},'%')
+      </if>
+      <if test="sname != null and sname != ''">
+        AND sname LIKE concat('%',#{sname},'%')
+      </if>
+      <if test="spassword != null and spassword != ''">
+        AND spassword LIKE concat('%',#{spassword},'%')
+      </if>
+      <if test="smajor != null and smajor != ''">
+        AND smajor LIKE concat('%',#{smajor},'%')
+      </if>
+      <if test="ssex != null and ssex != ''">
+        AND ssex LIKE concat('%',#{ssex},'%')
+      </if>
+
+    </where>
+  </select>
+
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from student_info
     where snumber = #{snumber,jdbcType=INTEGER}
   </select>
@@ -23,9 +83,11 @@
   </delete>
   <insert id="insert" parameterType="com.springmvc.entity.StudentInfo" >
     insert into student_info (snumber, sname, ssex, 
-      smajor, spassword)
+      smajor, spassword, sprofile
+      )
     values (#{snumber,jdbcType=INTEGER}, #{sname,jdbcType=VARCHAR}, #{ssex,jdbcType=VARCHAR}, 
-      #{smajor,jdbcType=VARCHAR}, #{spassword,jdbcType=VARCHAR})
+      #{smajor,jdbcType=VARCHAR}, #{spassword,jdbcType=VARCHAR}, #{sprofile,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.springmvc.entity.StudentInfo" >
     insert into student_info
@@ -45,6 +107,9 @@
       <if test="spassword != null" >
         spassword,
       </if>
+      <if test="sprofile != null" >
+        sprofile,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="snumber != null" >
@@ -61,6 +126,9 @@
       </if>
       <if test="spassword != null" >
         #{spassword,jdbcType=VARCHAR},
+      </if>
+      <if test="sprofile != null" >
+        #{sprofile,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,7 +147,19 @@
       <if test="spassword != null" >
         spassword = #{spassword,jdbcType=VARCHAR},
       </if>
+      <if test="sprofile != null" >
+        sprofile = #{sprofile,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where snumber = #{snumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.springmvc.entity.StudentInfo" >
+    update student_info
+    set sname = #{sname,jdbcType=VARCHAR},
+      ssex = #{ssex,jdbcType=VARCHAR},
+      smajor = #{smajor,jdbcType=VARCHAR},
+      spassword = #{spassword,jdbcType=VARCHAR},
+      sprofile = #{sprofile,jdbcType=LONGVARCHAR}
     where snumber = #{snumber,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.StudentInfo" >
