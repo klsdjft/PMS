@@ -12,7 +12,7 @@
 </head>
 <body>
 <form id="slogin" action="/pms/slogin" method="post">
-    <label for="snumber">学号：</label> <input type="text" required id="snumber" name="snumber"><br>
+    <label for="snumber">学号：</label> <input type="number" required id="snumber" name="snumber"><br>
     <label for="spassword">密码：</label> <input type="password" required id="spassword" name="spassword"><br>
     <input type="submit" value="登录">
     <input type="button" value="注册" onclick="location.href='/pms/sregister'">

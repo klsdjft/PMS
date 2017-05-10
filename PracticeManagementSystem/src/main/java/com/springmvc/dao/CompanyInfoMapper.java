@@ -7,21 +7,21 @@ import java.util.ArrayList;
 
 @Repository
 public interface CompanyInfoMapper {
-    int deleteByPrimaryKey(Integer cid);
+    public int deleteByPrimaryKey(Integer cid);
 
-    int insert(CompanyInfo record);
+    public int insert(CompanyInfo record);
 
-    int insertSelective(CompanyInfo record);
+    public int insertSelective(CompanyInfo record);
 
-    CompanyInfo selectByPrimaryKey(Integer cid);
+    public CompanyInfo selectByPrimaryKey(Integer cid);
 
-    int updateByPrimaryKeySelective(CompanyInfo record);
+    public  int updateByPrimaryKeySelective(CompanyInfo record);
 
-    int updateByPrimaryKey(CompanyInfo record);
+    public int updateByPrimaryKey(CompanyInfo record);
 
-    int getCount();
+    public int getCount();
 
-    ArrayList<CompanyInfo> selectSelective(CompanyInfo companyInfo);
+    public  ArrayList<CompanyInfo> selectSelective(CompanyInfo companyInfo);
 
-    ArrayList<CompanyInfo> selectLike(CompanyInfo companyInfo);
+    public ArrayList<CompanyInfo> selectLike(CompanyInfo companyInfo);
 }

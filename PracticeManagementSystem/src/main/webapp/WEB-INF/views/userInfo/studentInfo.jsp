@@ -21,7 +21,7 @@
     <p>性别：${studentInfo.ssex eq 1 ?'女':'男'}</p>
     <p>专业：${studentInfo.smajor}</p>
     <p>简介:${studentInfo.sprofile}</p>
-    <input type="button" value="注销" onclick="location.href='/pms/logout'">
+    <input type="button" value="注销" onclick="location.href='/pms/slogout'">
     个人简介：
     <%--<c:if test="${!empty studentInfo.sprofile}">--%>
     <%--<textarea name="sprofile" id="sprofile" cols="30" rows="10">${studentInfo.sprofile}</textarea>--%>

@@ -1,6 +1,8 @@
 package com.springmvc.controller;
 
+import com.springmvc.entity.CompanyInfo;
 import com.springmvc.entity.StudentInfo;
+import com.springmvc.service.CompanyService;
 import com.springmvc.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,11 @@ public class loginController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private CompanyService companyService;
 
+
+    //学生登陆
     @RequestMapping(value = "/pms/slogin", method = RequestMethod.GET)
     public String slogin() {
         return "./login/slogin";
@@ -54,17 +60,56 @@ public class loginController {
         return "./login/slogin";
     }
     //退出登录，注销账户
-    @RequestMapping(value = "/pms/logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    @RequestMapping(value = "/pms/slogout", method = RequestMethod.GET)
+    public String slogout(HttpSession session) {
         session.invalidate();
 //        session.removeAttribute("user");
         return "./login/slogin";
     }
 
-        @RequestMapping("/pms/clogin")
-        public String clogin () {
-            return "./login/clogin";
+
+    //公司登陆
+    @RequestMapping(value = "/pms/clogin", method = RequestMethod.GET)
+    public String clogin() {
+        return "./login/clogin";
+    }
+
+    //实现登录功能，将用户信息保存在session里面
+    @RequestMapping(value = "/pms/clogin", method = RequestMethod.POST)
+    public String clogin(HttpSession session, Model model, @ModelAttribute CompanyInfo companyInfo) {
+        List<CompanyInfo> list =new ArrayList<CompanyInfo>();
+        CompanyInfo record = new CompanyInfo();
+        record.setCid(companyInfo.getCid());
+//        System.out.println("学号是："+record.getSnumber());
+        list = companyService.selectSelective(record);
+        if (list.size() == 0)
+            model.addAttribute("result", "0");   //该账户不存在！
+        else {
+            record.setCpassword(MD5(companyInfo.getCpassword()));
+            list = companyService.selectSelective(record);
+            if (list.size() == 0)
+                model.addAttribute("result", "1");   //密码错误！
+            else {
+                record = list.get(0);
+                session.setAttribute("companyInfo", record);
+                //将用户信息保存在session里面
+                model.addAttribute("result", "2");   //登陆成功！
+            }
         }
+        return "./login/clogin";
+    }
+
+
+
+    //退出登录，注销账户
+    @RequestMapping(value = "/pms/clogout", method = RequestMethod.GET)
+    public String clogout(HttpSession session) {
+        session.invalidate();
+//        session.removeAttribute("user");
+        return "./login/clogin";
+    }
+
+
         @RequestMapping("/pms/tlogin")
         public String tlogin () {
             return "./login/tlogin";

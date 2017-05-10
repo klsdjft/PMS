@@ -30,13 +30,13 @@ this is a cregister jsp
     if ('${result}' != '') {
         if ('${result}' == 1) {
             alert('注册成功，将跳转到登录页面！')
-            location.href='/pms/slogin'
+            location.href='/pms/clogin'
         }
         if ('${result}' == 0) {
             alert('未知错误，注册失败！')
         }
         if ('${result}' == 2) {
-            alert('该账号已有人注册！')
+            alert('该账号已被注册！')
         }
 
     }

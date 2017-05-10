@@ -1,5 +1,6 @@
 package com.springmvc.controller;
 
+import com.springmvc.entity.CompanyInfo;
 import com.springmvc.entity.StudentInfo;
 import com.springmvc.service.StudentService;
 import org.omg.CORBA.Request;
@@ -24,7 +25,7 @@ public class userInfoController {
 
 
     @RequestMapping(value = "/pms/studentInfo", method = RequestMethod.GET)
-    public String toInfo(Model model, HttpSession session) {
+    public String tosInfo(Model model, HttpSession session) {
         StudentInfo studentInfo = (StudentInfo) session.getAttribute("studentInfo");
         studentInfo.setSprofile(((StudentInfo)studentService.selectByPrimaryKey(studentInfo.getSnumber())).getSprofile());
 //        System.out.println("1111"+((StudentInfo)studentService.selectByPrimaryKey(studentInfo.getSnumber())).getSprofile());
@@ -55,6 +56,16 @@ public class userInfoController {
 //        else
 //        System.out.print("insert error");
         return "./userInfo/studentInfo";
+    }
+
+
+
+    @RequestMapping(value = "/pms/companyInfo", method = RequestMethod.GET)
+    public String tocInfo(Model model, HttpSession session) {
+        CompanyInfo companyInfo = (CompanyInfo) session.getAttribute("companyInfo");
+        if (companyInfo != null)
+            model.addAttribute("companyInfo",companyInfo);
+        return "./userInfo/companyInfo";
     }
 
 
